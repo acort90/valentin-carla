@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bella de mi corazon 💘 Feliz San Valentín</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#1a0b1d;
+      --card:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.12);
+      --text:#f7f7fb;
+      --muted:rgba(247,247,251,.75);
+      --accent:#ff4d7d;
+      --accent2:#ff9db8;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(255,77,125,.18), transparent 55%),
+        radial-gradient(900px 700px at 80% 20%, rgba(255,157,184,.14), transparent 50%),
+        linear-gradient(140deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+
+    .wrap{ width:min(980px, 92vw); padding:28px; }
+
+    .card{
+      position:relative;
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+
+    .glow{
+      position:absolute;
+      inset:-2px;
+      pointer-events:none;
+      background: radial-gradient(600px 260px at 40% -10%, rgba(255,77,125,.35), transparent 60%);
+      opacity:.9;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,77,125,.14);
+      border:1px solid rgba(255,77,125,.25);
+      color:var(--accent2);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+
+    h1{
+      margin:14px 0 8px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height:1.05;
+    }
+
+    .sub{
+      color:var(--muted);
+      margin:0 0 18px;
+      font-size: clamp(14px, 2vw, 16px);
+      line-height:1.45;
+    }
+
+    .name{
+      color:var(--accent2);
+      text-shadow: 0 10px 40px rgba(255,77,125,.22);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (max-width:720px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .tile{
+      border-radius:18px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      padding:16px 14px;
+      text-align:center;
+    }
+    .num{
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight:900;
+      letter-spacing:.5px;
+    }
+    .lbl{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.9px;
+      text-transform:uppercase;
+    }
+
+    .msg{
+      margin-top:18px;
+      padding:16px 16px;
+      border-radius:18px;
+      background:rgba(255,77,125,.10);
+      border:1px solid rgba(255,77,125,.22);
+      color:rgba(247,247,251,.92);
+      line-height:1.55;
+      font-size:16px;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:16px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .btn{
+      cursor:pointer;
+      border:none;
+      padding:11px 15px;
+      border-radius:14px;
+      background:linear-gradient(135deg, rgba(255,77,125,.95), rgba(255,157,184,.9));
+      color:#1b0b12;
+      font-weight:900;
+      box-shadow: 0 12px 30px rgba(255,77,125,.20);
+      transition: transform .15s ease, filter .2s ease;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+
+    .btn2{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.16);
+      padding:11px 15px;
+      border-radius:14px;
+      background:rgba(255,255,255,.06);
+      color:rgba(247,247,251,.92);
+      font-weight:800;
+      transition: transform .15s ease, background .2s ease;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .btn2:hover{ transform: translateY(-1px); background:rgba(255,255,255,.08); }
+    .btn2:active{ transform: translateY(0px) scale(.99); }
+
+    /* Carta */
+.letterWrap{
+  margin-top:14px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+
+  max-height:0;
+  opacity:0;
+  transform: translateY(-6px);
+
+  overflow:hidden;
+  transition: max-height .55s ease, opacity .45s ease, transform .45s ease;
+}
+
+.letterWrap.open{
+  max-height:65vh;          /* límite visible */
+  height:65vh;              /* fuerza un alto real para que el scroll exista */
+  opacity:1;
+  transform: translateY(0);
+
+  overflow:auto;            /* <-- clave: no overflow-y */
+  -webkit-overflow-scrolling: touch; /* scroll suave en iOS */
+  touch-action: pan-y;      /* permite deslizar vertical */
+}
+    .letter{ padding:18px 18px 16px; }
+    .letterHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .letterTitle{
+      font-weight:900;
+      letter-spacing:.2px;
+      font-size:16px;
+      color: rgba(247,247,251,.95);
+    }
+    .seal{ font-size:18px; opacity:.9; }
+    .paper{
+      border-radius:16px;
+      background:
+        radial-gradient(500px 250px at 30% 10%, rgba(255,77,125,.08), transparent 55%),
+        rgba(15,18,35,.55);
+      border:1px solid rgba(255,255,255,.12);
+      padding:16px 16px 14px;
+      line-height:1.68;
+      color: rgba(247,247,251,.92);
+    }
+    .signature{ margin-top:14px; color: rgba(247,247,251,.92); font-weight:800; }
+    .small{ color: var(--muted); font-size:13px; margin-top:8px; }
+
+    /* Corazones flotando */
+    .heart{
+      position:absolute;
+      width:14px;
+      height:14px;
+      transform: rotate(45deg);
+      opacity:.75;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,.35));
+    }
+    .heart::before, .heart::after{
+      content:"";
+      position:absolute;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:var(--accent);
+    }
+    .heart{ background:var(--accent); }
+    .heart::before{ left:-7px; top:0; }
+    .heart::after{ left:0; top:-7px; }
+
+    @keyframes floatUp{
+      from{ transform: translateY(0) rotate(45deg); opacity:.0; }
+      10%{ opacity:.75; }
+      to{ transform: translateY(-120vh) rotate(45deg); opacity:0; }
+    }
+
+    .pulse{
+      display:inline-block;
+      animation:pulse 1.4s ease-in-out infinite;
+      transform-origin:center;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); }
+      50%{ transform: scale(1.06); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="glow"></div>
+
+      <div class="badge">
+        <span class="pulse">💘</span>
+        <span>Para <span class="name">Carla</span></span>
+      </div>
+
+      <h1><span class="name">Bella</span>, feliz San Valentín 💞</h1>
+
+      <p class="sub">
+        Desde el <b>25 de enero de 2024</b> el tiempo no solo pasa… <i>se convierte en historia</i>.
+        Y yo quiero que cada segundo contigo siga construyendo un “nosotros” más fuerte.
+      </p>
+
+      <div class="grid" aria-label="contador de tiempo">
+        <div class="tile">
+          <div class="num" id="days">0</div>
+          <div class="lbl">Días</div>
+        </div>
+        <div class="tile">
+          <div class="num" id="hours">00</div>
+          <div class="lbl">Horas</div>
+        </div>
+        <div class="tile">
+          <div class="num" id="minutes">00</div>
+          <div class="lbl">Minutos</div>
+        </div>
+        <div class="tile">
+          <div class="num" id="seconds">00</div>
+          <div class="lbl">Segundos</div>
+        </div>
+      </div>
+
+      <div class="msg">
+        Han pasado <b id="daysText">0</b> días desde que somos novios…
+        y yo sigo eligiéndote con la misma certeza: <b>vos</b>.
+      </div>
+
+      <div class="actions">
+        <div>Inicio del conteo: <b>25 de enero de 2024</b> • En vivo ⏱️</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" id="openLetterBtn">Abrí tu sorpresa ✨</button>
+          <button class="btn2" id="copyBtn">Copiar carta 💌</button>
+        </div>
+      </div>
+
+      <!-- CARTA OCULTA -->
+      <div class="letterWrap" id="letterWrap" aria-hidden="true">
+        <div class="letter">
+          <div class="letterHeader">
+            <div class="letterTitle">Carta para vos, Carla</div>
+            <div class="seal">🕊️</div>
+          </div>
+
+          <div class="paper" id="letterText">
+            Amol,
+            <br><br>
+            Gracias por caminar conmigo desde el 25 de enero de 2024. Por tu apoyo,
+            por tu forma de querer, y por ser ese lugar seguro donde todo se siente mejor.
+            <br><br>
+            Si este reloj cuenta días, horas, minutos y segundos, que quede claro:
+            <b>yo te elijo en todos los formatos</b>. En los días buenos y en los retadores.
+            En los planes grandes y en los momentos simples.
+            <br><br>
+            Feliz San Valentín, mi amor. Gracias por ser mi persona.
+            <div class="signature">Con todo mi amor, <br>Aarón 💘</div>
+            <div class="small">P.D.: Este contador es solo para recordarte algo: lo nuestro no se detiene.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Conteo desde que son novios: 25 de enero de 2024, 00:00:00 hora local
+    const start = new Date(2024, 0, 25, 0, 0, 0);
+
+    const elDays = document.getElementById("days");
+    const elHours = document.getElementById("hours");
+    const elMinutes = document.getElementById("minutes");
+    const elSeconds = document.getElementById("seconds");
+    const elDaysText = document.getElementById("daysText");
+
+    function pad(n){ return String(n).padStart(2, "0"); }
+
+    function tick(){
+      const t = new Date();
+      let diff = t - start; // ms
+      if (diff < 0) diff = 0;
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      elDays.textContent = days;
+      elHours.textContent = pad(hours);
+      elMinutes.textContent = pad(minutes);
+      elSeconds.textContent = pad(seconds);
+      elDaysText.textContent = days;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // Abrir/Cerrar carta
+    const letterWrap = document.getElementById("letterWrap");
+    const openLetterBtn = document.getElementById("openLetterBtn");
+
+    function toggleLetter(){
+      const isOpen = letterWrap.classList.toggle("open");
+      letterWrap.setAttribute("aria-hidden", String(!isOpen));
+      openLetterBtn.textContent = isOpen ? "Cerrar carta 💞" : "Abrí tu sorpresa ✨";
+      if (isOpen) burstHearts(10);
+    }
+    openLetterBtn.addEventListener("click", toggleLetter);
+
+    // Copiar carta
+    const copyBtn = document.getElementById("copyBtn");
+    const letterText = document.getElementById("letterText");
+
+    copyBtn.addEventListener("click", async () => {
+      const plain = letterText.innerText.replace(/\n{3,}/g, "\n\n").trim();
+      try{
+        await navigator.clipboard.writeText(plain);
+        copyBtn.textContent = "¡Carta copiada! ✅";
+        setTimeout(()=> copyBtn.textContent="Copiar carta 💌", 1800);
+      }catch(e){
+        alert("No pude copiar automáticamente. Podés copiarla manualmente 🙏");
+      }
+    });
+
+    // Corazones flotando decorativos
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+
+      const size = 10 + Math.random() * 18;
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+
+      const left = Math.random() * 100;
+      h.style.left = left + "vw";
+      h.style.bottom = "-40px";
+
+      const duration = 4 + Math.random() * 4;
+      h.style.animationDuration = duration + "s";
+
+      const alpha = 0.35 + Math.random() * 0.55;
+      h.style.opacity = alpha;
+
+      document.body.appendChild(h);
+      setTimeout(()=> h.remove(), duration * 1000 + 200);
+    }
+    setInterval(spawnHeart, 750);
+
+    function burstHearts(n){
+      for(let i=0;i<n;i++){
+        setTimeout(spawnHeart, i*90);
+      }
+    }
+  </script>
+</body>
+</html>
